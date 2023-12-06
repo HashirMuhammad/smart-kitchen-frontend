@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import MenuComponent from './Components/Menu'; 
+import Signup from './Components/SignUp'; 
+import Login from './Components/Login'; 
+import AddMenuItem from './Components/AddMenuItem'; 
+import UserList from './Components/UserList'; 
+import Order from './Components/Order'; 
+
+
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="w-screen h-auto flex flex-col bg-primary">
+
+        {/* <MenuComponent /> */}
+        {/* <Signup /> */}
+        {/* <Login /> */}
+        {/* <AddMenuItem /> */}
+        {/* <UserList /> */}
+        <Order />
+      </div>
   );
 }
 
