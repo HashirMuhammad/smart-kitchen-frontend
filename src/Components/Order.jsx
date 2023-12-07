@@ -46,36 +46,65 @@ const Order = () => {
   const handlePlaceOrder = async () => {
     try {
       const token = localStorage.getItem('token');
-
+  
       // Construct the menuIds array with quantities
       const updatedMenuIds = Object.keys(quantities).flatMap((itemId) => {
-        const menuId = itemId; // Assuming menuId is same as itemId
+        const menuId = itemId; // Assuming menuId is the same as itemId
         const quantity = quantities[itemId];
         return Array.from({ length: quantity }, () => ({ menuId, quantity: 1 }));
       });
-
+  
       const updatedOrderDetails = { ...orderDetails, menuIds: updatedMenuIds };
-
+  
       const response = await fetch('http://localhost:3000/order/place', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `${token}`,
+          Authorization: `${token}`,
         },
         body: JSON.stringify(updatedOrderDetails),
       });
-      console.log(JSON.stringify(updatedOrderDetails));
-
+  
+      console.log('Request Data:', updatedOrderDetails);
+  
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        console.error('Error response:', response);
+        // Handle error if needed
+      } else {
+        const responseData = await response.json();
+        const orderId = responseData.order?._id;
+  
+        // Log the order ID
+        console.log('Order placed successfully. Order ID:', orderId);
+        // Save the order ID in local storage
+        localStorage.setItem('orderId', orderId);
+  
+        // Handle other success actions if needed
       }
-
-      // Handle successful order placement, e.g., show a success message
-      console.log('Order placed successfully');
     } catch (error) {
       console.error('Error placing order:', error.message);
-    }
+    }  
   };
+
+  const calculateTotalAmount = () => {
+    let totalAmount = 0;
+
+    // Iterate through selected items and calculate the total amount
+    Object.keys(selectedItems).forEach((itemId) => {
+      if (selectedItems[itemId]) {
+        const quantity = quantities[itemId] || 1; // If quantity is not provided, default to 1
+        const selectedItem = menuData.find((item) => item._id === itemId);
+
+        if (selectedItem) {
+          totalAmount += quantity * selectedItem.price;
+        }
+      }
+    });
+
+    return totalAmount;
+  };
+
+  const totalAmount = calculateTotalAmount();
 
   return (
     <div>
@@ -87,11 +116,7 @@ const Order = () => {
             className={`card ${selectedItems[item._id] ? 'selected' : ''}`}
             onClick={() => handleItemClick(item._id)}
           >
-            <img
-              src={item.imgUrl}
-              className="card-img-top"
-              alt={item.name}
-            />
+            <img src={item.imgUrl} className="card-img-top" alt={item.name} />
             <div className="card-body">
               <h5 className="card-title">{item.name}</h5>
               <p className="card-text">${item.price}</p>
@@ -119,6 +144,11 @@ const Order = () => {
             <option value="dinein">Dine-in</option>
           </select>
         </label>
+
+        <div>
+          <h3>Total Amount: ${totalAmount.toFixed(2)}</h3>
+        </div>
+
         <button onClick={handlePlaceOrder}>Place Order</button>
       </div>
     </div>

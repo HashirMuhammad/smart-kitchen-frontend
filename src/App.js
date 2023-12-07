@@ -4,6 +4,10 @@ import Login from './Components/Login';
 import AddMenuItem from './Components/AddMenuItem'; 
 import UserList from './Components/UserList'; 
 import Order from './Components/Order'; 
+import OrderDetails from './Components/OrderDetails'; 
+import FeedbackForm from './Components/FeedbackForm'; 
+import RiderDetails from './Components/RiderDetails'; 
+import OrdersList from './Components/OrdersList'; 
 
 
 
@@ -18,7 +22,11 @@ function App() {
         {/* <Login /> */}
         {/* <AddMenuItem /> */}
         {/* <UserList /> */}
-        <Order />
+        {/* <Order /> */}
+        {/* <OrderDetails /> */}
+        {/* <FeedbackForm /> */}
+        {/* <RiderDetails /> */}
+        <OrdersList />
       </div>
   );
 }
