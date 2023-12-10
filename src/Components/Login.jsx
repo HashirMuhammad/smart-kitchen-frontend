@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Container, Box } from "@mui/material";
 
+import logo from "../assets/smartkitchen.jpg";
+import pic from "../assets/bg.jpg";
+import { Link } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,50 +39,82 @@ function Login() {
   };
 
   return (
-    <Container>
+    <Box
+    sx={{
+      backgroundImage: `url(${pic})`,
+      backgroundSize: "cover",
+      height:'100vh'
+    }}
+  >
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+    >
       <Box
         display={"flex"}
-        flexDirection={"column"}
+        justifyContent={"space-between"}
         alignItems={"center"}
-        my={3}
       >
+        <Box>
+          <img src={logo} alt="" srcset="" />
+        </Box>
         <Box>
           <Typography variant="h3">Welcome to Smart Kitchen</Typography>
         </Box>
-        <Typography variant="h4">Login</Typography>
-      </Box>
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        boxShadow={1}
-        borderRadius={3}
-        alignItems={"center"}
-      >
-        <TextField
-          label="Email"
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          margin="normal"
-          sx={{ width: 300 }}
-          required="true"
-        />
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          margin="normal"
-          sx={{ width: 300 }}
-          required="true"
-        />
-        <Box my={2} py={2} display={"flex"} justifyContent={"center"}>
-          <Button variant="contained" color="primary" onClick={handleLogin}>
-            Login
+        <Box mx={2}>
+          <Button
+            style={{ backgroundColor: "#FF0000" }}
+            onClick={handleLogin}
+          >
+            <Link
+              to={"/signup"}
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Sign Up
+            </Link>
           </Button>
         </Box>
       </Box>
-    </Container>
+      <Typography variant="h4" >Log in</Typography>
+    </Box>
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          boxShadow={1}
+          borderRadius={3}
+          alignItems={"center"}
+        >
+          <TextField
+            label="Email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            margin="normal"
+            sx={{ width: 300 }}
+            required="true"
+          />
+          <TextField
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            margin="normal"
+            sx={{ width: 300 }}
+            required="true"
+          />
+          
+          <Box mx={2}>
+          <Button
+            style={{ backgroundColor: "#FF0000",color:'white' }}
+            onClick={handleLogin}
+          >
+              Log in
+            
+          </Button>
+        </Box>
+        </Box>
+      </Box>
   );
 }
 

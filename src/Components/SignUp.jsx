@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Container, Box } from "@mui/material";
 import logo from "../assets/smartkitchen.jpg";
+import pic from "../assets/bg.jpg";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -33,13 +35,14 @@ function Signup() {
   };
 
   return (
-    <Box>
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        my={3}
-      >
+    <Box
+      sx={{
+        backgroundImage: `url(${pic})`,
+        backgroundSize: "cover",
+        height: "100vh",
+      }}
+    >
+      <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
         <Box
           display={"flex"}
           justifyContent={"space-between"}
@@ -52,8 +55,16 @@ function Signup() {
             <Typography variant="h3">Welcome to Smart Kitchen</Typography>
           </Box>
           <Box mx={2}>
-            <Button variant="contained" color="primary" onClick={handleSignup}>
-              Login
+            <Button
+              style={{ backgroundColor: "#FF0000" }}
+              onClick={handleSignup}
+            >
+              <Link
+                to={"/login"}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Log in
+              </Link>
             </Button>
           </Box>
         </Box>
@@ -62,7 +73,7 @@ function Signup() {
       <Box
         display={"flex"}
         flexDirection={"column"}
-        boxShadow={1}
+        boxShadow={2}
         borderRadius={3}
         alignItems={"center"}
       >
@@ -101,9 +112,10 @@ function Signup() {
         </Box>
       </Box>
       <Box my={2} py={2} display={"flex"} justifyContent={"center"}>
-        <Button variant="contained" color="primary" onClick={handleSignup}>
-          Signup
-        </Button>
+        <Button
+          style={{ backgroundColor: "#FF0000" , color:'white' }}
+          onClick={handleSignup}
+        >Log in </Button>
       </Box>
     </Box>
   );
