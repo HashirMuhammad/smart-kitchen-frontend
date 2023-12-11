@@ -34,9 +34,11 @@ const Header = () => {
             </Box>
           ))}
         </Grid>
-        <Button variant="contained" style={{ backgroundColor: "#FF0000" }}>
-          Order on Smart Kitchen
-        </Button>
+        <Button variant="contained" style={{ backgroundColor: "#FF0000", marginLeft: '10px' }}>
+  Order on Smart Kitchen
+</Button>
+
+
       </Box>
     </Box>
   );

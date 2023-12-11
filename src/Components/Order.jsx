@@ -16,6 +16,8 @@ import {
 import Header from "./Header/Header";
 import pic from "../assets/bg.jpg";
 import Food from "../assets/Food3.jpg";
+import { useNavigate } from 'react-router';
+
 
 const Order = () => {
   const [menuData, setMenuData] = useState([]);
@@ -25,6 +27,8 @@ const Order = () => {
     menuIds: [],
     deliveryType: "pickup",
   });
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -101,6 +105,7 @@ const Order = () => {
         console.log("Order placed successfully. Order ID:", orderId);
         // Save the order ID in local storage
         localStorage.setItem("orderId", orderId);
+        navigate('/order-details');
 
         // Handle other success actions if needed
       }

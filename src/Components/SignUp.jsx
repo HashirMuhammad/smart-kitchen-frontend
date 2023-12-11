@@ -3,11 +3,15 @@ import { TextField, Button, Typography, Container, Box } from "@mui/material";
 import logo from "../assets/smartkitchen.jpg";
 import pic from "../assets/bg.jpg";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router';
+
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
 
   const handleSignup = async () => {
     try {
@@ -29,6 +33,8 @@ function Signup() {
 
       const data = await response.json();
       console.log("Signup successful:", data);
+      navigate('/login');
+
     } catch (error) {
       console.error("Error during signup:", error.message);
     }
@@ -59,12 +65,8 @@ function Signup() {
               style={{ backgroundColor: "#FF0000" }}
               onClick={handleSignup}
             >
-              <Link
-                to={"/login"}
-                style={{ textDecoration: "none", color: "white" }}
-              >
+              
                 Log in
-              </Link>
             </Button>
           </Box>
         </Box>

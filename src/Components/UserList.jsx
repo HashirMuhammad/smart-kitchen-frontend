@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 function UserList() {
   const [users, setUsers] = useState([]);
   const [userRole, setUserRole] = useState('');
+  const navigate = useNavigate();
+
 
   const fetchUsers = async () => {
     try {
@@ -70,11 +73,17 @@ function UserList() {
     }
   };
 
+  const handleAddMenuItem = () => {
+    // Navigate to the "add-menu-item" route
+    navigate('/add-menu-item');
+  };
+
   return (
     <div>
       {userRole === 'admin' ? (
         <div>
           <h1>User List</h1>
+          <button onClick={handleAddMenuItem}>Add Menu Item</button>
           <table>
             <thead>
               <tr>

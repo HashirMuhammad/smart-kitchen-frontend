@@ -13,6 +13,8 @@ import Rating from "react-rating-stars-component";
 import Header from "./Header/Header";
 import pic from "../assets/bg.jpg";
 import pic0 from "../assets/Food3.jpg";
+import { useNavigate } from 'react-router';
+
 
 const FeedbackForm = () => {
   const [feedbackData, setFeedbackData] = useState({
@@ -33,6 +35,7 @@ const FeedbackForm = () => {
       rating: newRating,
     });
   };
+  const navigate = useNavigate();
 
   const handleSubmitFeedback = async () => {
     const token = localStorage.getItem("token");
@@ -55,6 +58,7 @@ const FeedbackForm = () => {
 
       // Handle successful feedback submission, e.g., show a success message
       console.log("Feedback submitted successfully");
+      navigate('/');
     } catch (error) {
       console.error("Error submitting feedback:", error.message);
     }

@@ -11,8 +11,14 @@ import SwiperMac from "./Swiper/Swiper";
 import Footer from "../Header/Footer";
 import Header from "../Header/Header";
 import pic from "../../assets/bg.jpg";
+import { useNavigate } from 'react-router';
+import { Button } from "@mui/base";
+
+
 const MenuComponent = () => {
   const [menuData, setMenuData] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -42,6 +48,11 @@ const MenuComponent = () => {
     >
       <Box display={"flex"} alignItems={"center"}>
         <Header />
+        <Box gap={2} >
+  <Button variant="contained" onClick={()=>{navigate('/login');}} style={{ backgroundColor: "#FF0000", marginLeft: '10px' }}>
+    LogIn
+  </Button>
+</Box>
       </Box>
 
       <Box my={2}>

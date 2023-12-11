@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Container, Box } from "@mui/material";
+import { useNavigate } from 'react-router';
 
 import logo from "../assets/smartkitchen.jpg";
 import pic from "../assets/bg.jpg";
@@ -7,36 +8,58 @@ import { Link, Router } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
 
   const handleLogin = async () => {
-    
-    try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+ 
+      try {
+        const response = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        });
+      
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      
+        const data = await response.json();
+      
+        // Save the token to local storage
+        localStorage.setItem("token", data.token);
+      
+        console.log("Login successful:", data);
+      
+        // Redirect based on the user's role
+        switch (data.user.role) {
+          case 'client':
+            navigate('/');
+            break;
+          case 'chef':
+            navigate('/orders-list');
+            break;
+          case 'rider':
+            navigate('/rider-details');
+            break;
+          case 'admin':
+            navigate('/user-list');
+            break;
+          default:
+            // Default redirect if the role is not recognized
+            navigate('/default');
+        }
+      
+        // Redirect or perform other actions after successful login
+      } catch (error) {
+        console.error("Error during login:", error.message);
       }
-
-      const data = await response.json();
-
-      // Save the token to local storage
-      localStorage.setItem("token", data.token);
-
-      console.log("Login successful:", data);
-
-      // Redirect or perform other actions after successful login
-    } catch (error) {
-      console.error("Error during login:", error.message);
-    }
+      
   };
 
   return (
@@ -66,14 +89,10 @@ function Login() {
         <Box mx={2}>
           <Button
             style={{ backgroundColor: "#FF0000" }}
-            onClick={handleLogin}
+            onClick={() => {navigate('/signup')}}
+            
           >
-            <Link
-              to={"/signup"}
-              style={{ textDecoration: "none", color: "white" }}
-            >
               Sign Up
-            </Link>
           </Button>
         </Box>
       </Box>

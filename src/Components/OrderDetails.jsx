@@ -9,6 +9,7 @@ import {
 import Header from "./Header/Header";
 
 import pic3 from "../assets/Vell Interiors & Appliacnes _ Gallery _ Photo Gallery.jpg";
+import { useNavigate } from 'react-router';
 
 import pic from "../assets/bg.jpg";
 import Food from "../assets/Food3.jpg";
@@ -19,6 +20,7 @@ const OrderDetails = () => {
     phoneNumber: "",
     paymentImage: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Retrieve order ID from local storage
@@ -70,6 +72,7 @@ const OrderDetails = () => {
 
       // Handle successful order update, e.g., show a success message
       console.log("Order updated successfully");
+      navigate('/feedback-form');
     } catch (error) {
       console.error("Error updating order:", error.message);
     }
