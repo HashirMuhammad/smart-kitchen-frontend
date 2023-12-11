@@ -53,7 +53,7 @@ const RiderDetails = () => {
           {/* Add more details as needed */}
         </div>
       ) : (
-        <p>Loading order details...</p>
+        <p>Loading order details..</p>
       )}
     </div>
   );
