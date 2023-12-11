@@ -13,6 +13,7 @@ const RiderDetails = () => {
 
         const data = await response.json();
         setOrderData(data.order);
+        console.log(data.order.address);
       } catch (error) {
         console.error('Error fetching order details:', error);
       }
@@ -41,6 +42,7 @@ const RiderDetails = () => {
                   {/* <p>Menu Item ID: {menuItem.id}</p> */}
                   <p>Menu Item Name: {menuItem.name}</p>
                   <p>Quantity: {menuItem.quantity}</p>
+                  <p>address: {orderData.address}</p>
                 </div>
               ))}
             </div>
@@ -51,7 +53,7 @@ const RiderDetails = () => {
           {/* Add more details as needed */}
         </div>
       ) : (
-        <p>Loading order details...</p>
+        <p>Loading order details..</p>
       )}
     </div>
   );

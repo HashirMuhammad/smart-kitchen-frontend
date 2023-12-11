@@ -1,16 +1,30 @@
-// OrderDetails.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Header from "./Header/Header";
+
+import pic3 from "../assets/Vell Interiors & Appliacnes _ Gallery _ Photo Gallery.jpg";
+import { useNavigate } from 'react-router';
+
+import pic from "../assets/bg.jpg";
+import Food from "../assets/Food3.jpg";
 
 const OrderDetails = () => {
   const [orderUpdateData, setOrderUpdateData] = useState({
-    address: '',
-    phoneNumber: '',
-    paymentImage: '',
+    address: "",
+    phoneNumber: "",
+    paymentImage: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Retrieve order ID from local storage
-    const orderId = localStorage.getItem('orderId');
+    const orderId = localStorage.getItem("orderId");
 
     // You can set orderId in the state if needed
     // setOrderUpdateData({ ...orderUpdateData, orderId });
@@ -38,63 +52,99 @@ const OrderDetails = () => {
   };
 
   const handleUpdateOrder = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:3000/order/update/${localStorage.getItem('orderId')}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify(orderUpdateData),
-      });
+      const response = await fetch(
+        `http://localhost:3000/order/update/${localStorage.getItem("orderId")}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify(orderUpdateData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       // Handle successful order update, e.g., show a success message
-      console.log('Order updated successfully');
+      console.log("Order updated successfully");
+      navigate('/feedback-form');
     } catch (error) {
-      console.error('Error updating order:', error.message);
+      console.error("Error updating order:", error.message);
     }
   };
 
   return (
-    <div>
-      <h1>Update Order</h1>
-      <form>
-        {/* orderId is removed from the input fields */}
-        <label>
-          Address:
-          <input
-            type="text"
-            name="address"
-            value={orderUpdateData.address}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Phone Number:
-          <input
-            type="text"
-            name="phoneNumber"
-            value={orderUpdateData.phoneNumber}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Payment Image:
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-        </label>
-        <br />
-        <button type="button" onClick={handleUpdateOrder}>
-          Update Order
-        </button>
-      </form>
-    </div>
+    <Grid
+      container
+      sx={{
+        backgroundImage: `url(${pic})`,
+        backgroundSize: "cover",
+        height: "100vh",
+      }}
+    >
+      <Box>
+        <Box >
+          <Header />
+        </Box>
+        <Box mt={4} display={"flex"} justifyContent={"center"}>
+          <Typography variant="h4">Update Order</Typography>
+        </Box>
+      </Box>
+
+      <Grid item lg={6} mt={3} py={4}>
+        <form>
+          <Box display={"flex"} justifyContent={"center"}>
+            <TextField
+              label="Address"
+              sx={{ width: 400 }}
+              margin="normal"
+              name="address"
+              value={orderUpdateData.address}
+              onChange={handleInputChange}
+            />
+          </Box>
+          <Box display={"flex"} justifyContent={"center"}>
+            <TextField
+              label="Phone Number"
+              sx={{ width: 400 }}
+              margin="normal"
+              name="phoneNumber"
+              value={orderUpdateData.phoneNumber}
+              onChange={handleInputChange}
+            />
+          </Box>
+          <Box display={"flex"} justifyContent={"center"}>
+            <TextField
+              type="file"
+              sx={{ width: 400 }}
+              margin="normal"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </Box>
+          <Box display={"flex"} justifyContent={"center"} mt={2} >
+            <Button
+              variant="contained"
+              color="primary"
+              type="button"
+              onClick={handleUpdateOrder}
+              style={{ backgroundColor: "#FF0000" }}
+              
+            >
+              Update Order
+            </Button>
+          </Box>
+        </form>
+      </Grid>
+      <Grid item lg={6} mt={2}>
+        <img src={Food} style={{borderRadius:'50px'}} alt="" srcset="" />
+      </Grid>
+    </Grid>
   );
 };
 
