@@ -3,12 +3,13 @@ import { TextField, Button, Typography, Container, Box } from "@mui/material";
 
 import logo from "../assets/smartkitchen.jpg";
 import pic from "../assets/bg.jpg";
-import { Link } from "react-router-dom";
+import { Link, Router } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
+    
     try {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
@@ -109,6 +110,7 @@ function Login() {
             style={{ backgroundColor: "#FF0000",color:'white' }}
             onClick={handleLogin}
           >
+            
               Log in
             
           </Button>
