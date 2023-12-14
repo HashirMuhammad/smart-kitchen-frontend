@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-
 import { useNavigate } from "react-router";
-
 import pic from "../assets/download (1).jpg";
 import Food from "../assets/Food3.jpg";
 

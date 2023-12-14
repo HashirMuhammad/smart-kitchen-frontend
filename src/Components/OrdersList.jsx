@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Footer from "./Header/Footer";
-import { Box, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { useNavigate } from "react-router";
 import pic from "../assets/download (1).jpg";
 
 const OrdersList = () => {
   const [orders, setOrders] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -26,7 +35,6 @@ const OrdersList = () => {
         console.error("Error fetching orders:", error);
       }
     };
-
     fetchOrders();
   }, []);
 
@@ -41,64 +49,87 @@ const OrdersList = () => {
       }}
       color={"white"}
     >
-      <Grid item lg={12} display={"flex"} m={2} justifyContent={"center"}>
-        <Typography variant="h2">Orders List</Typography>
-      </Grid>
-      <Box
+      <Grid
+        item
+        lg={12}
         display={"flex"}
-        justifyContent={"center"}
-        p={4}
-        border={"1px solid white"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        m={2}
       >
+        <Typography variant="h2">Chef Home Page</Typography>
+        <Grid display={"flex-end"}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate("/login");
+            }}
+            style={{
+              backgroundColor: "#FF0000",
+              marginLeft: "10px",
+              color: "white",
+            }}
+          >
+            Log out
+          </Button>
+        </Grid>
+      </Grid>
+      <Box display={"flex"} justifyContent={"center"} p={4}>
         {orders ? (
           <ul>
             {orders.map((order) => (
               <li key={order._id}>
-                <Box>
-                  <Typography variant="body1" fontWeight={"700"}>
-                    Order ID:
-                  </Typography>
-                  <Typography variant="body1"> {order._id} </Typography>
-                </Box>
-                <Box>
-                  <Typography variant="body1" fontWeight={"700"}>
-                    Time:
-                  </Typography>
-                  <Typography variant="body1"> {order.time} </Typography>
-                </Box>
+                <Card variant="outlined">
+                  <CardContent
+                    sx={{ backgroundColor: "black", color: "white" }}
+                  >
+                    <Box>
+                      <Typography variant="body1" fontWeight={"700"}>
+                        Order ID:
+                      </Typography>
+                      <Typography variant="body1"> {order._id} </Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="body1" fontWeight={"700"}>
+                        Time:
+                      </Typography>
+                      <Typography variant="body1"> {order.time} </Typography>
+                    </Box>
 
-                <h2>Menu Items Info</h2>
-                <ul>
-                  {Array.isArray(order.menuItemsInfo) &&
-                    order.menuItemsInfo.map((menuInfo) => (
-                      <li key={menuInfo.id}>
-                        <Box>
-                          <Typography variant="body1" fontWeight={"700"}>
-                            Name:
-                          </Typography>
-                          <Typography variant="body1">
-                            {menuInfo.name}
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography variant="body1" fontWeight={"700"}>
-                            Quantity:
-                          </Typography>
-                          <Typography variant="body1">
-                            {menuInfo.quantity}
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography variant="body1" fontWeight={"700"}>
-                            Address:
-                          </Typography>
-                          <Typography variant="body1">
-                            {menuInfo.address}
-                          </Typography>
-                        </Box>
-                      </li>
-                    ))}
-                </ul>
+                    <h2>Menu Items Info</h2>
+                    <ul>
+                      {Array.isArray(order.menuItemsInfo) &&
+                        order.menuItemsInfo.map((menuInfo) => (
+                          <li key={menuInfo.id}>
+                            <Box>
+                              <Typography variant="body1" fontWeight={"700"}>
+                                Name:
+                              </Typography>
+                              <Typography variant="body1">
+                                {menuInfo.name}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography variant="body1" fontWeight={"700"}>
+                                Quantity:
+                              </Typography>
+                              <Typography variant="body1">
+                                {menuInfo.quantity}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography variant="body1" fontWeight={"700"}>
+                                Address:
+                              </Typography>
+                              <Typography variant="body1">
+                                {menuInfo.address}
+                              </Typography>
+                            </Box>
+                          </li>
+                        ))}
+                    </ul>
+                  </CardContent>
+                </Card>
               </li>
             ))}
           </ul>

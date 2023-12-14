@@ -20,7 +20,6 @@ export default function SwiperMac() {
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
         height: "100vh",
-        width: "100%",
       }}
     >
       <Grid container>

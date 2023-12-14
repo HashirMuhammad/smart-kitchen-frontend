@@ -42,7 +42,7 @@ function UserList() {
       const data = await response.json();
       setUsers(data);
 
-      const user = data.find((user) => user.role === "admin"); 
+      const user = data.find((user) => user.role === "admin");
       setUserRole(user ? "admin" : "non-admin");
     } catch (error) {
       console.error("Error fetching users:", error.message);
@@ -102,16 +102,30 @@ function UserList() {
       <Box>
         {userRole === "admin" ? (
           <div>
+            <Typography variant="h2">Admin Home Page</Typography>
             <Box display={"flex"} justifyContent={"space-between"} p={3}>
               <Typography variant="h4">User List</Typography>
-              <Button
-                sx={{ backgroundColor: "#FF0000", color: "white" }}
-                onClick={handleAddMenuItem}
-                variant="contained"
-                color="primary"
-              >
-                Add Menu Item
-              </Button>
+              <Box>
+                <Button
+                  sx={{ backgroundColor: "#FF0000", color: "white" }}
+                  onClick={handleAddMenuItem}
+                  variant="contained"
+                  color="primary"
+                >
+                  Add Menu Item
+                </Button>
+                <Button
+                
+                  sx={{ backgroundColor: "#FF0000", color: "white", mx:2 }}
+                  onClick={()=>{
+                    navigate("/login");
+                  }}
+                  variant="contained"
+                  color="primary"
+                >
+                  LogOut
+                </Button>
+              </Box>
             </Box>
             <TableContainer sx={{ boxShadow: "4" }}>
               <Table>

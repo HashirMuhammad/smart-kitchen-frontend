@@ -87,16 +87,6 @@ const MenuComponent = () => {
                   </Box>
                 </Box>
               ))}
-              <Button
-                variant="contained"
-                style={{
-                  backgroundColor: "#FF0000",
-                  marginLeft: "10px",
-                  color: "white",
-                }}
-              >
-                Order on Smart Kitchen
-              </Button>
             </Grid>
           </Box>
         </Grid>
@@ -136,6 +126,7 @@ const MenuComponent = () => {
       <Grid
         container
         spacing={3}
+        mt={5}
         sx={{
           backgroundImage: `url(${pic})`,
           backgroundSize: "cover",

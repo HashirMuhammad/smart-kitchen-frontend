@@ -89,7 +89,6 @@ function Login() {
             </Button>
           </Box>
         </Box>
-        <Typography variant="h4">Log in</Typography>
       </Box>
       <Box
         display={"flex"}
