@@ -6,10 +6,10 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import pic from "../../../assets/download (1).jpg";
-import pic1 from "../../../assets/Food3.jpg";
-import pic2 from "../../../assets/download.jpg";
-import pic3 from "../../../assets/Vell Interiors & Appliacnes _ Gallery _ Photo Gallery.jpg";
-import pic4 from "../../../assets/Gallery of CoMED _ ad2 architekten ZT KG  - 20.jpg";
+import pic1 from "../../../assets/download (2).jpg";
+import pic2 from "../../../assets/download (3).jpg";
+import pic3 from "../../../assets/download (4).jpg";
+import pic4 from "../../../assets/download (5).jpg";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Box, Grid } from "@mui/material";
 
