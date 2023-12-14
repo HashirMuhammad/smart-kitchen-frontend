@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   FormControl,
   FormLabel,
   Grid,
-  InputLabel,
   TextareaAutosize,
   Typography,
 } from "@mui/material";
 import Rating from "react-rating-stars-component";
-import Header from "./Header/Header";
-import pic from "../assets/bg.jpg";
+import pic from "../assets/download (1).jpg";
 import pic0 from "../assets/Food3.jpg";
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Footer from "./Header/Footer";
 
 const FeedbackForm = () => {
   const [feedbackData, setFeedbackData] = useState({
@@ -38,6 +37,7 @@ const FeedbackForm = () => {
   const navigate = useNavigate();
 
   const handleSubmitFeedback = async () => {
+    navigate("/");
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(
@@ -58,7 +58,7 @@ const FeedbackForm = () => {
 
       // Handle successful feedback submission, e.g., show a success message
       console.log("Feedback submitted successfully");
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.error("Error submitting feedback:", error.message);
     }
@@ -72,15 +72,18 @@ const FeedbackForm = () => {
         backgroundSize: "cover",
         height: "100vh",
       }}
+      color={"white"}
     >
-      <Box>
-        <Box>
-          <Header />
-        </Box>
-        <Box display={"flex"} justifyContent={"center"}>
-          <Typography variant="h4">Submit Feedback</Typography>
-        </Box>
-      </Box>
+      <Grid item lg={12} display={"flex"} mx={4} alignItems={"center"}>
+        <ArrowBackIcon
+          sx={{ cursor: "pointer" }}
+          color="white"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+        <Typography variant="h2">FeedBack</Typography>
+      </Grid>
       <Grid
         item
         lg={5}
@@ -88,14 +91,15 @@ const FeedbackForm = () => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <form>
-          <FormControl sx={{ width: "400" }}>
-            <FormLabel>Feedback:</FormLabel>
+        <form color="white">
+          <FormControl sx={{ width: "400", color: "white" }}>
+            <FormLabel sx={{ color: "white" }}>Feedback:</FormLabel>
             <TextareaAutosize
               name="feedback"
               value={feedbackData.feedback}
               onChange={handleInputChange}
               rowsMin={4}
+              fullwidth
               style={{
                 width: "100%",
                 resize: "vertical",
@@ -104,8 +108,8 @@ const FeedbackForm = () => {
             />
           </FormControl>
           <br />
-          <FormControl sx={{ width: "400" }} mt={2}>
-            <FormLabel>Rating:</FormLabel>
+          <FormControl sx={{ width: "400", color: "white" }} mt={2}>
+            <FormLabel sx={{ color: "white" }}>Rating:</FormLabel>
             <Rating
               count={5}
               size={40}
@@ -127,6 +131,7 @@ const FeedbackForm = () => {
       <Grid item lg={6}>
         <img src={pic0} style={{ borderRadius: "50px" }} alt="" />
       </Grid>
+      <Footer />
     </Grid>
   );
 };

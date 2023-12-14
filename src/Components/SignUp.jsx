@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Container, Box } from "@mui/material";
 import logo from "../assets/smartkitchen.jpg";
-import pic from "../assets/bg.jpg";
-import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router';
-
+import pic from "../assets/download (1).jpg";
+import { useNavigate } from "react-router";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
 
   const handleSignup = async () => {
     try {
@@ -33,8 +30,7 @@ function Signup() {
 
       const data = await response.json();
       console.log("Signup successful:", data);
-      navigate('/login');
-
+      navigate("/login");
     } catch (error) {
       console.error("Error during signup:", error.message);
     }
@@ -48,7 +44,12 @@ function Signup() {
         height: "100vh",
       }}
     >
-      <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+        color={"white"}
+      >
         <Box
           display={"flex"}
           justifyContent={"space-between"}
@@ -62,11 +63,10 @@ function Signup() {
           </Box>
           <Box mx={2}>
             <Button
-              style={{ backgroundColor: "#FF0000" }}
+              style={{ backgroundColor: "#FF0000", color: "white" }}
               onClick={handleSignup}
             >
-              
-                Log in
+              Log in
             </Button>
           </Box>
         </Box>
@@ -86,7 +86,16 @@ function Signup() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             margin="normal"
-            sx={{ width: 300 }}
+            sx={{
+              width: 300,
+              "& label": {
+                color: "white",
+              },
+              "& input": {
+                color: "white",
+              },
+              border: "1px solid white",
+            }}
             required="true"
           />
         </Box>
@@ -98,7 +107,16 @@ function Signup() {
             onChange={(e) => setEmail(e.target.value)}
             margin="normal"
             required="true"
-            sx={{ width: 300 }}
+            sx={{
+              width: 300,
+              "& label": {
+                color: "white",
+              },
+              "& input": {
+                color: "white",
+              },
+              border: "1px solid white",
+            }}
           />
         </Box>
         <Box px={2}>
@@ -109,15 +127,26 @@ function Signup() {
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
             required="true"
-            sx={{ width: 300 }}
+            sx={{
+              width: 300,
+              "& label": {
+                color: "white",
+              },
+              "& input": {
+                color: "white",
+              },
+              border: "1px solid white",
+            }}
           />
         </Box>
       </Box>
       <Box my={2} py={2} display={"flex"} justifyContent={"center"}>
         <Button
-          style={{ backgroundColor: "#FF0000" , color:'white' }}
+          style={{ backgroundColor: "#FF0000", color: "white" }}
           onClick={handleSignup}
-        >Log in </Button>
+        >
+          Log in{" "}
+        </Button>
       </Box>
     </Box>
   );

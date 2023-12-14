@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Box, Grid } from "@mui/material";
-import Header from "../Components/Header/Header";
-import pic from "../assets/bg.jpg";
+import pic from "../assets/download (1).jpg";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router";
 
 import pic1 from "../assets/Food3.jpg";
+import Footer from "./Header/Footer";
 
 function AddMenuItem() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [imgUrl, setImgUrl] = useState("");
+  const navigate = useNavigate();
 
   const handleAddMenuItem = async () => {
+
     try {
-      // Get the token from local storage
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -24,7 +28,7 @@ function AddMenuItem() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${token}`, // Add the token to the Authorization header
+          Authorization: `${token}`,
         },
         body: JSON.stringify({
           name,
@@ -40,11 +44,10 @@ function AddMenuItem() {
       const data = await response.json();
 
       console.log("Menu item added successfully:", data);
-
-      // Redirect or perform other actions after adding the menu item
     } catch (error) {
       console.error("Error adding menu item:", error.message);
     }
+    
   };
 
   return (
@@ -53,34 +56,54 @@ function AddMenuItem() {
       sx={{
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
-        height: "100vh",
       }}
+      color={"white"}
     >
-      <Box>
-        <Box>
-          <Header />
-        </Box>
-        <Box display={"flex"} justifyContent={"center"} mt={3}>
-          <Typography variant="h4">Add Menu Item</Typography>
-        </Box>
-      </Box>
-      <Grid item lg={6} mt={5} py={5}>
+      <Grid item lg={12} display={"flex"} mx={4} alignItems={"center"}>
+        <ArrowBackIcon
+          sx={{ cursor: "pointer" }}
+          color="white"
+          onClick={() => {
+            navigate("/user-list");
+          }}
+        />
+        <Typography variant="h2">Add Menu Items</Typography>
+      </Grid>
+      <Grid item lg={6} mt={5} py={5} color={"white"}>
         <Box display={"flex"} justifyContent={"center"}>
           <TextField
             label="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            sx={{ width: 400 }}
+            sx={{
+              width: 300,
+              "& label": {
+                color: "white",
+              },
+              "& input": {
+                color: "white",
+              },
+              border: "1px solid white",
+            }}
             margin="normal"
           />
         </Box>
-        <Box display={"flex"} justifyContent={"center"}>
+        <Box display={"flex"} justifyContent={"center"} color={"white"}>
           <TextField
             label="Price"
             type="number"
             value={price}
             onChange={(e) => setPrice(parseFloat(e.target.value))}
-            sx={{ width: 400 }}
+            sx={{
+              width: 300,
+              "& label": {
+                color: "white",
+              },
+              "& input": {
+                color: "white",
+              },
+              border: "1px solid white",
+            }}
             margin="normal"
           />
         </Box>
@@ -89,12 +112,24 @@ function AddMenuItem() {
             label="Image URL"
             value={imgUrl}
             onChange={(e) => setImgUrl(e.target.value)}
-            sx={{ width: 400 }}
+            sx={{
+              width: 300,
+              "& label": {
+                color: "white",
+              },
+              "& input": {
+                color: "white",
+              },
+              border: "1px solid white",
+            }}
             margin="normal"
           />
         </Box>
         <Box display={"flex"} justifyContent={"center"} py={3}>
-          <Button sx={{backgroundColor:'#FF0000',color:"white"}}  onClick={handleAddMenuItem}>
+          <Button
+            sx={{ backgroundColor: "#FF0000", color: "white" }}
+            onClick={handleAddMenuItem}
+          >
             Add Menu Item
           </Button>
         </Box>
@@ -102,6 +137,7 @@ function AddMenuItem() {
       <Grid lg={6} py={2}>
         <img src={pic1} alt="" style={{ borderRadius: "50px" }} srcset="" />
       </Grid>
+      <Footer />
     </Grid>
   );
 }

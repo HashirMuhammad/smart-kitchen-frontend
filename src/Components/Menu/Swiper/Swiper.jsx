@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import pic from "../../../assets/download (1).jpg";
 import pic1 from "../../../assets/Food3.jpg";
 import pic2 from "../../../assets/download.jpg";
 import pic3 from "../../../assets/Vell Interiors & Appliacnes _ Gallery _ Photo Gallery.jpg";
@@ -14,9 +15,16 @@ import { Box, Grid } from "@mui/material";
 
 export default function SwiperMac() {
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundImage: `url(${pic})`,
+        backgroundSize: "cover",
+        height: "100vh",
+        width: "100%",
+      }}
+    >
       <Grid container>
-        <Grid item lg={6} >
+        <Grid item lg={12}>
           <Swiper
             spaceBetween={30}
             centeredSlides={true}

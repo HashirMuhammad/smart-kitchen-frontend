@@ -7,17 +7,16 @@ import {
   CardMedia,
   FormControl,
   Grid,
-  InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import Header from "./Header/Header";
-import pic from "../assets/bg.jpg";
+import pic from "../assets/download (1).jpg";
 import Food from "../assets/Food3.jpg";
-import { useNavigate } from 'react-router';
-
+import { useNavigate } from "react-router";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Footer from "./Header/Footer";
 
 const Order = () => {
   const [menuData, setMenuData] = useState([]);
@@ -28,7 +27,6 @@ const Order = () => {
     deliveryType: "pickup",
   });
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const fetchMenuData = async () => {
@@ -68,12 +66,13 @@ const Order = () => {
   };
 
   const handlePlaceOrder = async () => {
+    navigate("/order-details");
+
     try {
       const token = localStorage.getItem("token");
 
-      // Construct the menuIds array with quantities
       const updatedMenuIds = Object.keys(quantities).flatMap((itemId) => {
-        const menuId = itemId; // Assuming menuId is the same as itemId
+        const menuId = itemId;
         const quantity = quantities[itemId];
         return Array.from({ length: quantity }, () => ({
           menuId,
@@ -96,18 +95,13 @@ const Order = () => {
 
       if (!response.ok) {
         console.error("Error response:", response);
-        // Handle error if needed
       } else {
         const responseData = await response.json();
         const orderId = responseData.order?._id;
 
-        // Log the order ID
         console.log("Order placed successfully. Order ID:", orderId);
-        // Save the order ID in local storage
         localStorage.setItem("orderId", orderId);
-        navigate('/order-details');
-
-        // Handle other success actions if needed
+        navigate("/order-details");
       }
     } catch (error) {
       console.error("Error placing order:", error.message);
@@ -117,7 +111,6 @@ const Order = () => {
   const calculateTotalAmount = () => {
     let totalAmount = 0;
 
-    // Iterate through selected items and calculate the total amount
     Object.keys(selectedItems).forEach((itemId) => {
       if (selectedItems[itemId]) {
         const quantity = quantities[itemId] || 1; // If quantity is not provided, default to 1
@@ -140,61 +133,75 @@ const Order = () => {
       sx={{
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
-        height: "100vh",
       }}
+      color={"white"}
     >
-      <Box>
-        <Box>
-          <Header />
-        </Box>
-        <Box display={"flex"} justifyContent={"center"}>
-          <Typography variant="h2">Orders</Typography>
-        </Box>
-      </Box>
-      <Grid item lg={6} display={"flex"} justifyContent={"center"} py={3}>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {menuData.map((item) => (
-            <Card
-              key={item._id}
-              sx={{ width: 200, margin: 1, cursor: "pointer" }}
-              onClick={() => handleItemClick(item._id)}
-              className={selectedItems[item._id] ? "selected" : ""}
-            >
-              <CardMedia
-                component="img"
-                height="140"
-                image={item.imgUrl}
-                alt={item.name}
-              />
-              <CardContent>
-                <Typography variant="h6">{item.name}</Typography>
-                <Typography variant="body2">${item.price}</Typography>
-                {selectedItems[item._id] && (
-                  <TextField
-                    type="number"
-                    InputProps={{ inputProps: { min: 1 } }}
-                    value={quantities[item._id] || ""}
-                    onChange={(e) =>
-                      handleQuantityChange(item._id, e.target.value)
-                    }
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
+      <Grid item lg={12} display={"flex"} mx={4} alignItems={"center"}>
+        <ArrowBackIcon
+          sx={{ cursor: "pointer" }}
+          color="white"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+        <Typography variant="h2">Orders</Typography>
+      </Grid>
+      <Grid
+        item
+        lg={12}
+        mt={3}
+        display={"flex"}
+        justifyContent={"center"}
+        py={3}
+      >
+        {menuData.map((item) => (
+          <Card
+            key={item._id}
+            sx={{ width: 200, margin: 1, cursor: "pointer" }}
+            onClick={() => handleItemClick(item._id)}
+            className={selectedItems[item._id] ? "selected" : ""}
+          >
+            <CardMedia
+              component="img"
+              height="140"
+              image={item.imgUrl}
+              alt={item.name}
+            />
+            <CardContent>
+              <Typography variant="h6">{item.name}</Typography>
+              <Typography variant="body2">${item.price}</Typography>
+              {selectedItems[item._id] && (
+                <TextField
+                  type="number"
+                  InputProps={{ inputProps: { min: 1 } }}
+                  value={quantities[item._id] || ""}
+                  onChange={(e) =>
+                    handleQuantityChange(item._id, e.target.value)
+                  }
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
+            </CardContent>
+          </Card>
+        ))}
+      </Grid>
+      <Grid item lg={5} p={4} mx={4}>
         <Box mt={2}>
           <Box display={"flex"} justifyContent={"center"} mt={3}>
             <Typography variant="h4">Order Details</Typography>
           </Box>
-          <FormControl sx={{ width: 300 , marginTop:3 }}  >
+          <FormControl
+            sx={{
+              width: 300,
+              marginTop: 3,
+            }}
+          >
             <label id="delivery-type-label">Delivery Type</label>
             <Select
               labelId="delivery-type-label"
               value={orderDetails.deliveryType}
               onChange={handleDeliveryTypeChange}
+              sx={{ color: "white" }}
             >
               <MenuItem value="pickup">Pickup</MenuItem>
               <MenuItem value="delivery">Delivery</MenuItem>
@@ -202,7 +209,7 @@ const Order = () => {
             </Select>
           </FormControl>
 
-          <Box mt={3} mx={3} >
+          <Box mt={3} mx={3}>
             <Typography variant="h5">
               Total Amount: ${totalAmount.toFixed(2)}
             </Typography>
@@ -222,9 +229,10 @@ const Order = () => {
           </Box>
         </Box>
       </Grid>
-      <Grid item lg={6}>
-        <img src={Food} style={{borderRadius:'50px'}} alt="" />
+      <Grid item lg={6} mt={3}>
+        <img src={Food} style={{ borderRadius: "50px" }} alt="" />
       </Grid>
+      <Footer />
     </Grid>
   );
 };
