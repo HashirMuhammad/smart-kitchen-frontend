@@ -19,7 +19,8 @@ export default function SwiperMac() {
       sx={{
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
-        height: "100vh",
+        backgroundColor: "transparent",
+        height: "130vh",
       }}
     >
       <Grid container>
