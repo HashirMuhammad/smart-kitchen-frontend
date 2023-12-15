@@ -44,7 +44,6 @@ const MenuComponent = () => {
       sx={{
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
-        height: "100vh",
       }}
     >
       <Box display={"flex"} alignItems={"center"}>
@@ -56,13 +55,7 @@ const MenuComponent = () => {
           justifyContent={"center"}
         >
           <Box>
-            <Grid
-              item
-              lg={10}
-              mx={2}
-              display={"flex"}
-              justifyContent={"space-between"}
-            >
+            <Grid item lg={10} display={"flex"}>
               {MenuuData.map((item) => (
                 <Box
                   key={item.id}
@@ -90,7 +83,7 @@ const MenuComponent = () => {
             </Grid>
           </Box>
         </Grid>
-        <Box gap={2}>
+        <Box gap={1} display={"flex"} mx={2}>
           <Button
             variant="contained"
             onClick={() => {
@@ -115,26 +108,23 @@ const MenuComponent = () => {
               color: "white",
             }}
           >
-            Log out
+            Logout
           </Button>
         </Box>
       </Box>
 
-      <Box my={2}>
+      <Box>
         <SwiperMac />
       </Box>
       <Grid
         container
-        spacing={3}
-        mt={5}
-        sx={{
-          backgroundImage: `url(${pic})`,
-          backgroundSize: "cover",
-          height: "100vh",
-        }}
+        // spacing={3}
+        // mt={5}
+        // p={4}
+        mx={2}
       >
         {menuData.map((item) => (
-          <Grid key={item._id} item lg={4}>
+          <Grid key={item._id} mt={3}>
             <Card>
               <CardMedia
                 component="img"

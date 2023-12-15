@@ -19,7 +19,6 @@ export default function SwiperMac() {
       sx={{
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
-        height: "100vh",
       }}
     >
       <Grid container>
@@ -39,17 +38,17 @@ export default function SwiperMac() {
             className="mySwiper"
             border={"1px solid black"}
           >
-            <SwiperSlide>
-              <img src={pic1} alt="" srcset="" width={"100%"} height={"100%"} />
+            <SwiperSlide >
+              <img src={pic1} alt="" srcset="" style={{ width: "100%" }} />
             </SwiperSlide>
-            <SwiperSlide>
-              <img src={pic2} alt="" srcset="" width={"100%"} height={"100%"} />
+            <SwiperSlide >
+              <img src={pic3} alt="" srcset="" style={{ width: "100%" }} />
             </SwiperSlide>
-            <SwiperSlide>
-              <img src={pic3} alt="" srcset="" width={"100%"} height={"100%"} />
+            <SwiperSlide >
+              <img src={pic1} alt="" srcset="" style={{ width: "100%" }} />
             </SwiperSlide>
-            <SwiperSlide>
-              <img src={pic4} alt="" srcset="" width={"100%"} height={"100%"} />
+            <SwiperSlide >
+              <img src={pic3} alt="" srcset="" style={{ width: "100%" }} />
             </SwiperSlide>
           </Swiper>
         </Grid>
