@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CountdownDisplay from './CountdownDisplay';
+import CountdownDisplay from "./CountdownDisplay";
 import {
   Typography,
   Grid,
@@ -92,7 +92,6 @@ const MenuComponent = () => {
             }}
             style={{
               backgroundColor: "#FF0000",
-              marginLeft: "10px",
               color: "white",
             }}
           >
@@ -105,7 +104,6 @@ const MenuComponent = () => {
             }}
             style={{
               backgroundColor: "#FF0000",
-              marginLeft: "10px",
               color: "white",
             }}
           >
@@ -117,19 +115,13 @@ const MenuComponent = () => {
       <Box>
         <SwiperMac />
       </Box>
-      <Box my={30} style={{ backgroundColor: 'transparent', padding: '10px', borderRadius: '5px' }}>
+      <Box color={"white"}>
         <CountdownDisplay />
       </Box>
 
-      <Grid
-        container
-        // spacing={3}
-        // mt={5}
-        // p={4}
-        mx={2}
-      >
+      <Grid container>
         {menuData.map((item) => (
-          <Grid key={item._id} mt={3}>
+          <Grid key={item._id} item lg={4} p={1} mt={3}>
             <Card>
               <CardMedia
                 component="img"
@@ -148,7 +140,9 @@ const MenuComponent = () => {
             </Card>
           </Grid>
         ))}
-        <Footer />
+        <Box mt={2}>
+          <Footer />
+        </Box>
       </Grid>
     </Box>
   );

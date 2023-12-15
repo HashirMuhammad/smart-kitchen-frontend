@@ -10,7 +10,7 @@ function Footer() {
       sx={{
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
-        width:'100%'
+        // width:'100%'
       }}
     >
       <Box display={"flex"} justifyContent={"space-between"} color={'white'}>
