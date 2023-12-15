@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CountdownDisplay from './CountdownDisplay';
 import {
   Typography,
   Grid,
@@ -116,6 +117,10 @@ const MenuComponent = () => {
       <Box>
         <SwiperMac />
       </Box>
+      <Box my={30} style={{ backgroundColor: 'transparent', padding: '10px', borderRadius: '5px' }}>
+        <CountdownDisplay />
+      </Box>
+
       <Grid
         container
         // spacing={3}

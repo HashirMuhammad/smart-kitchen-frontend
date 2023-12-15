@@ -19,6 +19,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Footer from "./Header/Footer";
 
 const Order = () => {
+  const [time, setTime] = useState(45 * 60); // Initial time in seconds
   const [menuData, setMenuData] = useState([]);
   const [selectedItems, setSelectedItems] = useState({});
   const [quantities, setQuantities] = useState({});
@@ -66,7 +67,7 @@ const Order = () => {
   };
 
   const handlePlaceOrder = async () => {
-    navigate("/order-details");
+    
 
     try {
       const token = localStorage.getItem("token");
@@ -101,6 +102,16 @@ const Order = () => {
 
         console.log("Order placed successfully. Order ID:", orderId);
         localStorage.setItem("orderId", orderId);
+        // Start the countdown timer
+      const countdownTimerId = setInterval(() => {
+        setTime((prevTime) => Math.max(0, prevTime - 1));
+      }, 1000);
+
+      // Save the countdown timer ID and start time in local storage
+      const startTime = Math.floor(Date.now() / 1000); // current time in seconds
+      localStorage.setItem('countdownTimerId', JSON.stringify(countdownTimerId));
+      localStorage.setItem('countdownStartTime', JSON.stringify(startTime));
+      
         navigate("/order-details");
       }
     } catch (error) {
