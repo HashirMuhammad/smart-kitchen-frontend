@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Container, Box } from "@mui/material";
+import { TextField, Button, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router";
+import * as Yup from "yup";
 
 import logo from "../assets/smartkitchen.jpg";
 import pic from "../assets/download (1).jpg";
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +18,8 @@ function Login() {
 
   const handleLogin = async () => {
     try {
+      await LoginSchema.validate({ email, password }, { abortEarly: false });
+
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
@@ -49,7 +58,11 @@ function Login() {
           navigate("/default");
       }
     } catch (error) {
-      console.error("Error during login:", error.message);
+      if (error.name === "ValidationError") {
+        console.error("Validation error:", error.errors);
+      } else {
+        console.error("Error during login:", error.message);
+      }
     }
   };
 
@@ -73,7 +86,7 @@ function Login() {
           alignItems={"center"}
         >
           <Box>
-            <img src={logo} alt="" srcset="" />
+            <img src={logo} alt="" srcSet="" />
           </Box>
           <Box>
             <Typography variant="h3">Welcome to Smart Kitchen</Typography>
@@ -113,7 +126,7 @@ function Login() {
             },
             border: "1px solid white",
           }}
-          required="true"
+          required
         />
         <TextField
           label="Password"
@@ -131,7 +144,7 @@ function Login() {
             },
             border: "1px solid white",
           }}
-          required="true"
+          required
         />
 
         <Box mx={2}>
