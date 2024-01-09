@@ -46,7 +46,6 @@ const RiderDetails = () => {
       sx={{
         backgroundImage: `url(${pic})`,
         backgroundSize: "cover",
-        height: "100vh",
       }}
       color={"white"}
     >
