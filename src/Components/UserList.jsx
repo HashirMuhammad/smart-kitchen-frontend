@@ -91,6 +91,27 @@ function UserList() {
     navigate("/add-menu-item");
   };
 
+  const handleDeleteUser = async (userId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      fetchUsers(); // Refresh the user list after deletion
+    } catch (error) {
+      console.error("Error deleting user:", error.message);
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -143,6 +164,9 @@ function UserList() {
                     <TableCell sx={{ fontWeight: "Bold", color: "white" }}>
                       Action
                     </TableCell>
+                    <TableCell sx={{ fontWeight: "Bold", color: "white" }}>
+                      Delete
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -161,6 +185,16 @@ function UserList() {
                           sx={{ backgroundColor: "#FF0000", color: "white" }}
                         >
                           Change Role
+                        </Button>
+                      </TableCell>
+                      <TableCell sx={{ color: "white" }}>
+                        <Button
+                          onClick={() => handleDeleteUser(user._id)}
+                          variant="outlined"
+                          color="primary"
+                          sx={{ backgroundColor: "#FF0000", color: "white" }}
+                        >
+                          Delete
                         </Button>
                       </TableCell>
                     </TableRow>

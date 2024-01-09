@@ -101,6 +101,8 @@ const MenuComponent = () => {
             variant="contained"
             onClick={() => {
               navigate("/login");
+              localStorage.removeItem("countdownTimerId");
+              localStorage.removeItem("countdownStartTime");
             }}
             style={{
               backgroundColor: "#FF0000",
